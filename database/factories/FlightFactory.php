@@ -20,7 +20,7 @@ class FlightFactory extends Factory
         $arrival_time = $this->faker->dateTimeBetween($departure_time, $departure_time->format('Y-m-d H:i:s').' +12 hours');
 
         return [
-            'number' => $this->faker->unique()->numberBetween(100, 999),
+            'number' => $this->faker->regexify('[A-Z]{2}[0-9]{4}'),
             'departure_city' => $this->faker->city,
             'arrival_city' => $this->faker->city,
             'departure_time' => $departure_time,
