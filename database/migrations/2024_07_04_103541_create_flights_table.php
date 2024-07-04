@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('flights', function (Blueprint $table) {
             $table->id();
+            $table->integer('number')->unique();
+            $table->string('departure_city');
+            $table->string('arrival_city');
+            $table->dateTime('departure_time');
+            $table->dateTime('arrival_time');
             $table->timestamps();
         });
     }

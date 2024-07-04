@@ -5,19 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Passenger extends Model
+class Flight extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'first_name',
-        'last_name',
-        'email',
-        'password',
-        'date_of_birth',
-        'passport_expiry_date',
+        'number',
+        'departure_city',
+        'arrival_city',
+        'departure_time',
+        'arrival_time',
     ];
-
-  
 }
-    
