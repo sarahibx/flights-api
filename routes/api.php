@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PassengerController;
 use App\Http\Controllers\FlightController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,3 +26,6 @@ Route::get('passengers', [PassengerController::class, 'index']);
 Route::get('/flights', [FlightController::class, 'index']);
 
 Route::get('/flights/{flight}/passengers', [FlightPassengerController::class, 'index']);
+
+
+Route::apiResource('users', UserController::class);
