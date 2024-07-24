@@ -23,13 +23,11 @@ class UserController extends Controller
             'password' => 'required|string|min:8',
         ]);
 
-        $user = User::create([
-            'name' => $validatedData['name'],
-            'email' => $validatedData['email'],
-            'email_verified_at' => now(), // Assuming all users are verified upon registration
-            'password' => Hash::make($validatedData['password']), // Hash the password
-            'remember_token' => Str::random(10), // Generate a random remember token
-        ]);
+        $validatedData['email_verified_at'] = now();
+        $validatedData['password'] = Hash::make($validatedData['password']);
+        $validatedData['remember_token'] = Str::random(10);
+
+        $user = User::create($validatedData);
 
         return response()->json($user, 201);
     }
@@ -43,16 +41,11 @@ class UserController extends Controller
         return response()->json($user);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        $user = User::find($id);
-        if (!$user) {
-            return response()->json(['message' => 'User not found'], 404);
-        }
-
         $validatedData = $request->validate([
             'name' => 'string|max:255',
-            'email' => 'string|email|max:255|unique:users,email,' . $id,
+            'email' => 'string|email|max:255|unique:users,email,' . $user->id,
             'password' => 'sometimes|string|min:8',
         ]);
 
@@ -61,13 +54,8 @@ class UserController extends Controller
         return response()->json($user);
     }
 
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        $user = User::find($id);
-        if (!$user) {
-            return response()->json(['message' => 'User not found'], 404);
-        }
-
         $user->delete();
         return response()->json(['message' => 'User deleted successfully']);
     }

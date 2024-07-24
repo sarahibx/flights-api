@@ -35,13 +35,18 @@ return [
     |
     */
 
+ 
     'guards' => [
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
+            ],
+        'api' => [
+            'driver' => 'sanctum',
+            'provider' => 'users',
+            ],
         ],
-    ],
-
+    
     /*
     |--------------------------------------------------------------------------
     | User Providers
@@ -109,6 +114,8 @@ return [
     | confirmation screen. By default, the timeout lasts for three hours.
     |
     */
+
+
 
     'password_timeout' => 10800,
 
