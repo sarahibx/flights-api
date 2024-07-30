@@ -59,4 +59,18 @@ class UserController extends Controller
         $user->delete();
         return response()->json(['message' => 'User deleted successfully']);
     }
+
+    // public function export()
+    // {
+    //     return Excel::download(new UsersExport, 'users.xlsx');
+    // }
+
+    public function export()
+    {
+        $users = Cache::remember('users_export', 60, function () {
+            return User::all();
+        });
+
+        return Excel::download(new UsersExport($users), 'users.xlsx');
+    }
 }

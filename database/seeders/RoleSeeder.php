@@ -24,13 +24,11 @@ class RoleSeeder extends Seeder
             $adminRole->givePermissionTo($permission);
         }
 
-        // Assign role to a specific user
         $user = User::where('email', 'a@gmail.com')->first();
 
         if ($user) {
             $user->assignRole($adminRole);
         } else {
-            // Optionally handle the error, e.g., log it or create the user
             echo "User not found, creating a new admin user.\n";
             $user = User::create([
                 'name' => 'Admin User',
